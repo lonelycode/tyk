@@ -1072,7 +1072,7 @@ func (gw *Gateway) handleAddApi(r *http.Request, fs afero.Fs, oasEndpoint bool) 
 	if newDef.APIID == "" {
 		newDef.GenerateAPIID()
 	}
-
+	newDef.LastUpdated = int(time.Now().Unix())
 	if oasEndpoint {
 		newAPIURL := getAPIURL(newDef, gw.GetConfig())
 		oasObj.AddServers(newAPIURL)
@@ -1165,6 +1165,8 @@ func (gw *Gateway) handleUpdateApi(apiID string, r *http.Request, fs afero.Fs, o
 	if spec == nil {
 		return apiError(apidef.ErrAPINotFound.Error()), http.StatusNotFound
 	}
+
+	spec.LastUpdated = int(time.Now().Unix())
 
 	var (
 		newDef apidef.APIDefinition
