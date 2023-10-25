@@ -1083,7 +1083,7 @@ func (s *Test) newGateway(genConf func(globalConf *config.Config)) *Gateway {
 	s.MockHandle = MockHandle
 
 	var err error
-	gwConfig.Storage.Database = rand.Intn(15)
+	gwConfig.Storage.Database = 1
 	gwConfig.AppPath, err = ioutil.TempDir("", "tyk-test-")
 
 	if err != nil {
