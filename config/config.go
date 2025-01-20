@@ -251,6 +251,31 @@ type AnalyticsConfigConfig struct {
 	SerializerType string `json:"serializer_type"`
 }
 
+// AccessLogsConfig defines the type of transactions logs printed to stdout.
+type AccessLogsConfig struct {
+	// Enabled controls enabling the transaction logs. Default: false.
+	Enabled bool `json:"enabled"`
+
+	// Template defaults to empty which prints the default log.
+	// Set this value to determine which fields will be printed in the access log.
+	// Example: ["..."].
+	//
+	// Template Options:
+	// - `api_key` will include they obfuscated or hashed key.
+	// - `client_ip` will include the ip of the request.
+	// - `host` will include the host of the request.
+	// - `latency_total` will include the total latency of the request.
+	// - `method` will include the request method.
+	// - `path` will include the path of the request.
+	// - `protocol` will include the protocol of the request.
+	// - `remote_addr` will include the remote address of the request.
+	// - `status` will include the response status code.
+	// - `upstream_address` will include the upstream address (scheme, host and path)
+	// - `upstream_latency` will include the upstream latency of the request.
+	// - `use_agent` will include the user agent of the request.
+	Template []string `json:"template"`
+}
+
 type HealthCheckConfig struct {
 	// Setting this value to `true` will enable the health-check endpoint on /Tyk/health.
 	EnableHealthChecks bool `json:"enable_health_checks"`
@@ -1012,6 +1037,10 @@ type Config struct {
 	// You can now configure the log format to be either the standard or json format
 	// If not set or left empty, it will default to `standard`.
 	LogFormat string `json:"log_format"`
+
+	// AccessLogs configures the output for access logs.
+	// If not configured, the access log is disabled.
+	AccessLogs AccessLogsConfig `json:"access_logs"`
 
 	// Section for configuring OpenTracing support
 	// Deprecated: use OpenTelemetry instead.
