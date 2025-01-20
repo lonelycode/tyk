@@ -1787,7 +1787,7 @@ paths:
       summary: Return one certificate or list multiple certificates in the Tyk Gateway
         given a comma separated list of cert IDs.
       tags:
-      - CertsTag
+      - Certs
   /tyk/debug:
     post:
       description: Used to test API definition by sending sample request and analysing
@@ -6277,6 +6277,7 @@ components:
           - executionEngine
           - subgraph
           - supergraph
+          - ""  # Allow empty string
           type: string
         introspection:
           $ref: '#/components/schemas/GraphQLIntrospectionConfig'
@@ -6301,9 +6302,9 @@ components:
           type: array
         version:
           enum:
-          - ''''
           - "1"
           - "2"
+          - ""  # Allow empty string
           type: string
       type: object
     GraphQLEngineConfig:
@@ -7265,6 +7266,7 @@ components:
         trigger:
           type: number
       type: object
+      nullable: true
     RateLimitType2:
       properties:
         per:
